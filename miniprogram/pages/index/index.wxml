@@ -1,0 +1,74 @@
+<!-- 顶部图片 -->
+<view class="bgImgae">
+	<image src='./index.jpg' class='img'></image>
+</view>
+<!-- 设置搜索栏 -->
+<view class="search">
+	<view class="search_view">
+		<icon type="search"></icon>
+		<input value="{{ inputVal }}" bindinput="_inputVal" placeholder="菜谱搜索"></input>
+	</view>
+	<text bindtap="_recipePage" data-tag="search" data-title="{{ inputVal }}"  data-id="null">搜索</text>
+</view>
+<!-- 分类导航 -->
+<view class='sort-menu'>
+	<!-- 添加点击事件，跳到所有的菜谱分类页面 -->
+	<view class='menu-list' bindtap="_goRecipeTypePage">
+		<image src='/static/index/fenlei.png'></image>
+		<text>菜谱分类</text>
+	</view>
+	<!-- 添加点击事件，跳到相应的菜单列表页面 -->
+	<block wx:for="{{ recipeTypesList }}">
+		<view class='menu-list' data-title="{{ item.typeName }}" bindtap="_recipePage" data-tag="ptfl" data-id="{{item._id}}" >
+			<image src='/static/index/ertong.png'></image>
+			<text>{{ item.typeName }}</text>
+		</view>
+	</block>
+
+	<!-- 传入推荐 -->
+	<view class='menu-list'  bindtap="_recipePage" data-tag="tjcp" data-title="推荐菜谱"  data-id="null">
+		<image src='/static/index/tuijian.png'></image>
+		<text>推荐菜谱</text>
+	</view>
+</view>
+<!-- 热门菜谱 -->
+<view class='hot-recipe'>
+	<!-- moreHotRecipes更多的热门菜谱 -->
+	<mp-cell link hover value="热门菜谱" bindtap="_recipePage" data-tag="rmcp" data-title="热门菜谱"  data-id="null" >
+		<image slot="title" src="/static/index/remen.png" style="margin-right: 16px;vertical-align: middle;width:30px; height: 30px;"></image>
+	</mp-cell>
+</view>
+<!-- 热门菜谱列表 -->
+<view class="hot-recipe-lists">
+	<!-- 点击图片，跳转到当前菜单的菜谱详情页面 -->
+	<!-- id :菜单id， recipeName：菜单名称 -->
+	<block wx:for="{{ hotRecipeLists }}">
+		<view class="hotlist" data-recipe-name="{{ item.recipeName }}" data-id="{{ item._id }}" bindtap="_goToRecipeDetailPage">
+			<view>
+				<image class="recipeimage" mode="scaleToFill" src="{{ item.fields[0].fileID }}"></image>
+			</view>
+			<!-- 菜谱信息 -->
+			<view class="hotlist_info">
+				<!-- 菜谱名称 -->
+				<view class="recipename">
+					<text>{{ item.recipeName }}</text>
+				</view>
+				<!-- 详细信息 -->
+				<view class="dedailinfo">
+					<!-- 头像  名字 -->
+					<view>
+						<image class="usernameimage" mode="scaleToFill" src="{{ item.userInfo.avatarUrl }}"></image>
+						<text>{{ item.userInfo.nickName }}</text>
+					</view>
+					<!-- 热度 -->
+					<view>
+						<image class="hotimage" mode="scaleToFill" src="/static/index/hot.png"></image>
+						<text>{{ item.views }}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+	</block>
+
+
+</view>

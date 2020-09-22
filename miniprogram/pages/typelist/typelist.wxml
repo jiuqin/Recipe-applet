@@ -1,0 +1,33 @@
+<view class="page">
+  <!-- 还是最上面的搜索页面 -->
+  <view>
+    <image src='./index.jpg' class='img'></image>
+    <!-- bindtap="search" -->
+    <!-- 设置搜索栏 -->
+    <view class="search">
+      <view class="search_view">
+        <icon type="search"></icon>
+        <input value="{{ inputVal }}" bindinput="_inputVal" placeholder="菜谱搜索" placeholder="菜谱搜索"></input>
+      </view>
+      <text bindtap="_recipePage" data-tag="search" data-title="{{ inputVal }}"  data-id="null">搜索</text>
+    </view>
+  </view>
+
+  <!-- 所有的菜谱分类页面 -->
+  <view class="typelist">
+    <view class='hot-recipe'>
+      <!-- 所有分类的列表 -->
+      <mp-cells>
+        <!-- 循环开始 -->
+        <block  wx:for="{{ recipeTypeLists }}">
+          <mp-cell data-title="{{ item.typeName }}" bindtap="_recipePage" data-tag="ptfl" data-id="{{item._id}}"  link hover value="{{ item.typeName }}">
+          </mp-cell>
+        </block>
+        
+      </mp-cells>
+    </view>
+  </view>
+
+
+
+</view>
